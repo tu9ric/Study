@@ -4,12 +4,17 @@
 #include <array>
 #include <iomanip>
 #include <vector>
+#include <string>
+#include <algorithm>
+#include <cstdint>
 #include <atomic>
 // библиотека для работы с SIMD в C++
 #include <immintrin.h>
 
 constexpr int NUM_OF_THREADS = 14;
 constexpr std::size_t NUM_OF_TESTS = 10;
+
+using Sum = __int128;
 
 // генерация id теста
 class IDGenerator 
@@ -61,19 +66,19 @@ struct Test
     std::size_t id;
     TypeOfTest type{TypeOfTest::Unknown};
     double time;
-    long long result;
+    __int128 result;
 };
 
 /// @brief функция для сложения чисел 
 /// @param begin первое значение диапазона
 /// @param end первая граница диапазона
 /// @return сумма чисел, находящихся в отрезке между begin и end
-long long sumOfRange(long long begin, long long end)
+Sum sumOfRange(long long begin, long long end)
 {
-    long long sum {0};
+    Sum sum {0};
     for(long long i = begin; i <= end; ++i)
     {
-        sum += i;
+        sum += static_cast<Sum>(i);
     }
     return sum;
 }
@@ -83,55 +88,62 @@ long long sumOfRange(long long begin, long long end)
 /// @param begin 
 /// @param end 
 /// @return 
-long long sumOfRangeSIMD(const long long begin, const long long end)
+Sum sumOfRangeSIMD(const long long begin, const long long end)
 {
-    // это сумма значений
-    __m256i sumSIMD = _mm256_setzero_si256();
+    if(begin > end)
+    {
+        return 0;
+    }
 
-    __m256i valuesSIMD = _mm256_setr_epi64x(begin, begin + 1, begin + 2, begin + 3);
+    constexpr long long BLOCK_SIZE = 1000000;
 
-    // шаг, потому что мы складываем 4 числа, а не по одному
-    __m256i stepSIMD = _mm256_set1_epi64x(4);
+    Sum total{0};
 
     long long i = begin;
-    for (; i + 3 <= end; i += 4)
+
+    const __m256i step = _mm256_set1_epi64x(4);
+
+    while(i <= end)
     {
-        sumSIMD = _mm256_add_epi64(sumSIMD, valuesSIMD);
-        valuesSIMD = _mm256_add_epi64(valuesSIMD, stepSIMD);
+        const long long blockSize = std::min(BLOCK_SIZE, end - i + 1);
+
+        const long long blockEnd = i + blockSize;
+
+        __m256i sumSIMD = _mm256_setzero_si256();
+        __m256i valuesSIMD = _mm256_setr_epi64x(i, i + 1, i + 2, i + 3);
+
+        for(; blockEnd - i >= 4; i += 4)
+        {
+            sumSIMD = _mm256_add_epi64(sumSIMD, valuesSIMD);
+            valuesSIMD = _mm256_add_epi64(valuesSIMD, step);
+        }
+
+        long long partialSums[4];
+        _mm256_storeu_si256(
+            reinterpret_cast<__m256i*>(partialSums), sumSIMD
+        );
+
+        for(long long value : partialSums)
+        {
+            total += static_cast<Sum>(value);
+        }
+
+        for(; i < blockEnd; ++i)
+        {
+            total += static_cast<Sum>(i);
+        }
     }
-
-    // считаем суммы хвоста (если он есть)
-    long long tailSum{0};
-    for(; i <= end; ++i)
-    {
-        tailSum += i;
-    }
-
-    long long partialSums[4];
-
-    // использую storeu, чтобы не заниматься выравниванием памяти
-    // нам нужно привести partialSums к указателю на __m256i, как этого требует функция AVX2
-    _mm256_storeu_si256(reinterpret_cast<__m256i*>(partialSums), sumSIMD);
-
-    // после этого шага, у меня в partialSums будет 4 отдельных частичных суммы
-    // останется только их сложить
-
-    // сразу складываю в переменную хвост, чтобы потом не прибавлять
-    long long sum{tailSum};
-    for (long long elem : partialSums)
-    {
-        sum += elem;
-    }
-    return sum;
+    
+    return total;
 } 
 
 
 
-Test LinearTest(long long n)
+Test LinearTest(Sum n)
 {
     Test LinearTest{};
     auto start = std::chrono::steady_clock::now();
-    long long res = sumOfRange(0, n);
+    Sum res = sumOfRange(0, n);
     auto end = std::chrono::steady_clock::now();
     std::chrono::duration<double> LinearTime = end - start;
     LinearTest.id = IDGenerator::generate();
@@ -141,11 +153,11 @@ Test LinearTest(long long n)
     return LinearTest;
 }
 
-Test SimdTest(long long n)
+Test SimdTest(Sum n)
 {
     Test SIMDTest{};
     auto start = std::chrono::steady_clock::now();
-    long long res = sumOfRangeSIMD(0, n);
+    Sum res = sumOfRangeSIMD(0, n);
     auto end = std::chrono::steady_clock::now();
     std::chrono::duration<double> SIMDTime = end - start;
     SIMDTest.id = IDGenerator::generate();
@@ -160,7 +172,7 @@ Test ThreadTest(long long n)
     Test THREADTest{};
     auto start = std::chrono::steady_clock::now();
     // массив для разделения одной большой задачи на части
-    std::array<long long, NUM_OF_THREADS> partial{};
+    std::array<Sum, NUM_OF_THREADS> partial{};
     // массив со всеми потоками
     std::array<std::thread, NUM_OF_THREADS> threads;
 
@@ -168,10 +180,12 @@ Test ThreadTest(long long n)
     // тут мы определяем границы каждой из областей
     for (std::size_t t = 0; t < NUM_OF_THREADS; ++t)
     {
+        const long long threadIndex = static_cast<long long>(t);
+        const long long count = n + 1;
         // просчитываем начальное значение области
-        const long long begin = (n + 1) * t / NUM_OF_THREADS;
+        const Sum begin = count * threadIndex / NUM_OF_THREADS;
         // и конечное значение области
-        const long long end = (n + 1) * (t + 1) / NUM_OF_THREADS - 1;
+        const Sum end = count * (threadIndex + 1) / NUM_OF_THREADS - 1;
         
         // здесь мы определяем каждый из потоков 
         // используется лямбда выражение - поток начинает выполнять функцию сразу после создания 
@@ -190,8 +204,8 @@ Test ThreadTest(long long n)
         thread.join();
     }
 
-    long long parallelRes = 0;
-    for (long long value : partial)
+    Sum parallelRes = 0;
+    for (Sum value : partial)
     {
         parallelRes += value;
     }
@@ -213,18 +227,18 @@ Test ThreadsAndSimdTest(long long n)
     // ЗАМЕР РАСПАРАЛЛЕЛИВАНИЯ (12 ПОТОКОВ) + SIMD
     auto start = std::chrono::steady_clock::now();
     // массив для разделения одной большой задачи на части
-    std::array<long long, NUM_OF_THREADS> partial{};
+    std::array<Sum, NUM_OF_THREADS> partial{};
     // массив со всеми потоками
     std::array<std::thread, NUM_OF_THREADS> threads;
 
     // цикл в котором мы присваиваем каждому потоку свою область действия
     // тут мы определяем границы каждой из областей
-    for (int t = 0; t < NUM_OF_THREADS; ++t)
+    for (std::size_t t = 0; t < NUM_OF_THREADS; ++t)
     {
         // просчитываем начальное значение области
-        const long long begin = (n + 1) * t / NUM_OF_THREADS;
+        const __int128 begin = (n + 1) * t / NUM_OF_THREADS;
         // и конечное значение области
-        const long long end = (n + 1) * (t + 1) / NUM_OF_THREADS - 1;
+        const __int128 end = (n + 1) * (t + 1) / NUM_OF_THREADS - 1;
         
         // здесь мы определяем каждый из потоков 
         // используется лямбда выражение - поток начинает выполнять функцию сразу после создания 
@@ -243,8 +257,8 @@ Test ThreadsAndSimdTest(long long n)
         thread.join();
     }
 
-    long long parallelRes = 0;
-    for (long long value : partial)
+    Sum parallelRes = 0;
+    for (Sum value : partial)
     {
         parallelRes += value;
     }
@@ -260,6 +274,26 @@ Test ThreadsAndSimdTest(long long n)
     return THREADSANDSIMDTest;
 }
 
+std::string sumToString(Sum value)
+{
+    if(value == 0)
+    {
+        return "0";
+    }
+
+    std::string result;
+
+    while(value > 0)
+    {
+        const int digit = static_cast<int>(value % 10);
+        result.push_back(static_cast<char>('0' + digit));
+        value /= 10;
+    }
+
+    std::reverse(result.begin(), result.end());
+    return result;
+}
+
 void printResult(const std::vector<Test>& tests)
 {
     for(auto& test : tests)
@@ -268,20 +302,26 @@ void printResult(const std::vector<Test>& tests)
         std::cout << std::setw(10) << test.id
                   << std::setw(15) << toString(test.type)
                   << std::setw(10) << test.time 
-                  << std::setw(20) << test.result << "\n";
+                  << std::setw(30) << sumToString(test.result) << "\n";
     }     
 }
 
 int main()
 {
-    
+
+    constexpr long long MAX_N = 10000000000LL;
+
     // добавил std::cin, чтобы были корректные замеры с -O2 оптимизацией
     // иначе компилятор заранее знает границы и выдаёт ответ сразу, что ломает эксперимент
     long long n;
     std::cout << "Enter n: ";
-    std::cin >> n;
-    //constexpr long long n = 1000000000;
     
+    if(!(std::cin >> n) || n < 0 || n > MAX_N)
+    {
+        std::cerr << "n must be an integer from 0 to " << MAX_N << '\n';
+        return 1;
+    }
+
     std::vector<Test> tests{};
     
     for(std::size_t i = 0; i < NUM_OF_TESTS; i++)
@@ -301,11 +341,30 @@ int main()
         tests.push_back(ThreadsAndSimdTest(n));
     }
 
+    const Sum wideN = static_cast<Sum>(n);
+    const Sum expected = wideN * (wideN + 1) / 2;
+
+    for(const auto& test : tests)
+    {
+        if(test.result != expected)
+        {
+            std::cerr << "Incorrect result in "
+                << toString(test.type)
+                << ": got " << 
+                sumToString(test.result)
+                << ", expected " << 
+                sumToString(expected)
+                << "\n";
+            return 1;
+        }
+    }
+
+
     // Вывод заголовка
     std::cout << std::setw(10) << "ID" 
               << std::setw(15) << "Type" 
               << std::setw(10) << "Time"
-              << std::setw(20) << "Result" << "\n";
+              << std::setw(30) << "Result" << "\n";
 
     // Линия-разделитель
     std::cout << std::string(60, '-') << "\n";
