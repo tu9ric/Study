@@ -1,0 +1,7 @@
+Сборка:
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
+cmake --build build -j
+
+
+Запуск:
+OMP_DYNAMIC=FALSE OMP_NUM_THREADS=14 ./build/lab2

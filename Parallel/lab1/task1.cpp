@@ -300,8 +300,8 @@ void printResult(const std::vector<Test>& tests)
     {
         // Вывод строк таблицы
         std::cout << std::setw(10) << test.id
-                  << std::setw(15) << toString(test.type)
-                  << std::setw(10) << test.time 
+                  << std::setw(20) << toString(test.type)
+                  << std::setw(20) << test.time 
                   << std::setw(30) << sumToString(test.result) << "\n";
     }     
 }
@@ -318,7 +318,7 @@ int main()
     
     if(!(std::cin >> n) || n < 0 || n > MAX_N)
     {
-        std::cerr << "n must be an integer from 0 to " << MAX_N << '\n';
+        std::cerr << "N must be an integer from 0 to " << MAX_N << '\n';
         return 1;
     }
 
@@ -362,12 +362,12 @@ int main()
 
     // Вывод заголовка
     std::cout << std::setw(10) << "ID" 
-              << std::setw(15) << "Type" 
-              << std::setw(10) << "Time"
+              << std::setw(20) << "Type" 
+              << std::setw(20) << "Time"
               << std::setw(30) << "Result" << "\n";
 
     // Линия-разделитель
-    std::cout << std::string(60, '-') << "\n";
+    std::cout << std::string(100, '-') << "\n";
 
     printResult(tests);
 

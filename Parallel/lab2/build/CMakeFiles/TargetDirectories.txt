@@ -1,0 +1,4 @@
+/home/kollessky/USER/Projects/study/Parallel/lab2/build/CMakeFiles/lab2_seq.dir
+/home/kollessky/USER/Projects/study/Parallel/lab2/build/CMakeFiles/lab2_omp.dir
+/home/kollessky/USER/Projects/study/Parallel/lab2/build/CMakeFiles/edit_cache.dir
+/home/kollessky/USER/Projects/study/Parallel/lab2/build/CMakeFiles/rebuild_cache.dir
