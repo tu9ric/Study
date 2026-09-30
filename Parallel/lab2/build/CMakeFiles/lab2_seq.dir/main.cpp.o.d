@@ -357,5 +357,4 @@ CMakeFiles/lab2_seq.dir/main.cpp.o: \
  /usr/include/opencv5/opencv2/stitching/detail/camera.hpp \
  /usr/include/opencv5/opencv2/video.hpp \
  /usr/include/opencv5/opencv2/video/tracking.hpp \
- /usr/include/opencv5/opencv2/video/background_segm.hpp \
- /usr/lib/gcc/x86_64-pc-linux-gnu/16/include/omp.h
+ /usr/include/opencv5/opencv2/video/background_segm.hpp

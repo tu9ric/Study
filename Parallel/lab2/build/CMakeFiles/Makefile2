@@ -63,87 +63,161 @@ CMAKE_BINARY_DIR = /home/kollessky/USER/Projects/study/Parallel/lab2/build
 # Directory level rules for the build root directory
 
 # The main recursive "all" target.
-all: CMakeFiles/lab2_seq.dir/all
-all: CMakeFiles/lab2_omp.dir/all
+all: task1/all
+all: task2/all
 .PHONY : all
 
 # The main recursive "codegen" target.
-codegen: CMakeFiles/lab2_seq.dir/codegen
-codegen: CMakeFiles/lab2_omp.dir/codegen
+codegen: task1/codegen
+codegen: task2/codegen
 .PHONY : codegen
 
 # The main recursive "preinstall" target.
-preinstall:
+preinstall: task1/preinstall
+preinstall: task2/preinstall
 .PHONY : preinstall
 
 # The main recursive "clean" target.
-clean: CMakeFiles/lab2_seq.dir/clean
-clean: CMakeFiles/lab2_omp.dir/clean
+clean: task1/clean
+clean: task2/clean
 .PHONY : clean
 
 #=============================================================================
-# Target rules for target CMakeFiles/lab2_seq.dir
+# Directory level rules for directory task1
+
+# Recursive "all" directory target.
+task1/all: task1/CMakeFiles/lab2_seq.dir/all
+task1/all: task1/CMakeFiles/lab2_omp.dir/all
+.PHONY : task1/all
+
+# Recursive "codegen" directory target.
+task1/codegen: task1/CMakeFiles/lab2_seq.dir/codegen
+task1/codegen: task1/CMakeFiles/lab2_omp.dir/codegen
+.PHONY : task1/codegen
+
+# Recursive "preinstall" directory target.
+task1/preinstall:
+.PHONY : task1/preinstall
+
+# Recursive "clean" directory target.
+task1/clean: task1/CMakeFiles/lab2_seq.dir/clean
+task1/clean: task1/CMakeFiles/lab2_omp.dir/clean
+.PHONY : task1/clean
+
+#=============================================================================
+# Directory level rules for directory task2
+
+# Recursive "all" directory target.
+task2/all: task2/CMakeFiles/task2_omp.dir/all
+.PHONY : task2/all
+
+# Recursive "codegen" directory target.
+task2/codegen: task2/CMakeFiles/task2_omp.dir/codegen
+.PHONY : task2/codegen
+
+# Recursive "preinstall" directory target.
+task2/preinstall:
+.PHONY : task2/preinstall
+
+# Recursive "clean" directory target.
+task2/clean: task2/CMakeFiles/task2_omp.dir/clean
+.PHONY : task2/clean
+
+#=============================================================================
+# Target rules for target task1/CMakeFiles/lab2_seq.dir
 
 # All Build rule for target.
-CMakeFiles/lab2_seq.dir/all:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/lab2_seq.dir/build.make CMakeFiles/lab2_seq.dir/depend
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/lab2_seq.dir/build.make CMakeFiles/lab2_seq.dir/build
+task1/CMakeFiles/lab2_seq.dir/all:
+	$(MAKE) $(MAKESILENT) -f task1/CMakeFiles/lab2_seq.dir/build.make task1/CMakeFiles/lab2_seq.dir/depend
+	$(MAKE) $(MAKESILENT) -f task1/CMakeFiles/lab2_seq.dir/build.make task1/CMakeFiles/lab2_seq.dir/build
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/kollessky/USER/Projects/study/Parallel/lab2/build/CMakeFiles --progress-num=3,4 "Built target lab2_seq"
-.PHONY : CMakeFiles/lab2_seq.dir/all
+.PHONY : task1/CMakeFiles/lab2_seq.dir/all
 
 # Build rule for subdir invocation for target.
-CMakeFiles/lab2_seq.dir/rule: cmake_check_build_system
+task1/CMakeFiles/lab2_seq.dir/rule: cmake_check_build_system
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/kollessky/USER/Projects/study/Parallel/lab2/build/CMakeFiles 2
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/lab2_seq.dir/all
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 task1/CMakeFiles/lab2_seq.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/kollessky/USER/Projects/study/Parallel/lab2/build/CMakeFiles 0
-.PHONY : CMakeFiles/lab2_seq.dir/rule
+.PHONY : task1/CMakeFiles/lab2_seq.dir/rule
 
 # Convenience name for target.
-lab2_seq: CMakeFiles/lab2_seq.dir/rule
+lab2_seq: task1/CMakeFiles/lab2_seq.dir/rule
 .PHONY : lab2_seq
 
 # codegen rule for target.
-CMakeFiles/lab2_seq.dir/codegen:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/lab2_seq.dir/build.make CMakeFiles/lab2_seq.dir/codegen
+task1/CMakeFiles/lab2_seq.dir/codegen:
+	$(MAKE) $(MAKESILENT) -f task1/CMakeFiles/lab2_seq.dir/build.make task1/CMakeFiles/lab2_seq.dir/codegen
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/kollessky/USER/Projects/study/Parallel/lab2/build/CMakeFiles --progress-num=3,4 "Finished codegen for target lab2_seq"
-.PHONY : CMakeFiles/lab2_seq.dir/codegen
+.PHONY : task1/CMakeFiles/lab2_seq.dir/codegen
 
 # clean rule for target.
-CMakeFiles/lab2_seq.dir/clean:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/lab2_seq.dir/build.make CMakeFiles/lab2_seq.dir/clean
-.PHONY : CMakeFiles/lab2_seq.dir/clean
+task1/CMakeFiles/lab2_seq.dir/clean:
+	$(MAKE) $(MAKESILENT) -f task1/CMakeFiles/lab2_seq.dir/build.make task1/CMakeFiles/lab2_seq.dir/clean
+.PHONY : task1/CMakeFiles/lab2_seq.dir/clean
 
 #=============================================================================
-# Target rules for target CMakeFiles/lab2_omp.dir
+# Target rules for target task1/CMakeFiles/lab2_omp.dir
 
 # All Build rule for target.
-CMakeFiles/lab2_omp.dir/all:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/lab2_omp.dir/build.make CMakeFiles/lab2_omp.dir/depend
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/lab2_omp.dir/build.make CMakeFiles/lab2_omp.dir/build
+task1/CMakeFiles/lab2_omp.dir/all:
+	$(MAKE) $(MAKESILENT) -f task1/CMakeFiles/lab2_omp.dir/build.make task1/CMakeFiles/lab2_omp.dir/depend
+	$(MAKE) $(MAKESILENT) -f task1/CMakeFiles/lab2_omp.dir/build.make task1/CMakeFiles/lab2_omp.dir/build
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/kollessky/USER/Projects/study/Parallel/lab2/build/CMakeFiles --progress-num=1,2 "Built target lab2_omp"
-.PHONY : CMakeFiles/lab2_omp.dir/all
+.PHONY : task1/CMakeFiles/lab2_omp.dir/all
 
 # Build rule for subdir invocation for target.
-CMakeFiles/lab2_omp.dir/rule: cmake_check_build_system
+task1/CMakeFiles/lab2_omp.dir/rule: cmake_check_build_system
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/kollessky/USER/Projects/study/Parallel/lab2/build/CMakeFiles 2
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/lab2_omp.dir/all
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 task1/CMakeFiles/lab2_omp.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/kollessky/USER/Projects/study/Parallel/lab2/build/CMakeFiles 0
-.PHONY : CMakeFiles/lab2_omp.dir/rule
+.PHONY : task1/CMakeFiles/lab2_omp.dir/rule
 
 # Convenience name for target.
-lab2_omp: CMakeFiles/lab2_omp.dir/rule
+lab2_omp: task1/CMakeFiles/lab2_omp.dir/rule
 .PHONY : lab2_omp
 
 # codegen rule for target.
-CMakeFiles/lab2_omp.dir/codegen:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/lab2_omp.dir/build.make CMakeFiles/lab2_omp.dir/codegen
+task1/CMakeFiles/lab2_omp.dir/codegen:
+	$(MAKE) $(MAKESILENT) -f task1/CMakeFiles/lab2_omp.dir/build.make task1/CMakeFiles/lab2_omp.dir/codegen
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/kollessky/USER/Projects/study/Parallel/lab2/build/CMakeFiles --progress-num=1,2 "Finished codegen for target lab2_omp"
-.PHONY : CMakeFiles/lab2_omp.dir/codegen
+.PHONY : task1/CMakeFiles/lab2_omp.dir/codegen
 
 # clean rule for target.
-CMakeFiles/lab2_omp.dir/clean:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/lab2_omp.dir/build.make CMakeFiles/lab2_omp.dir/clean
-.PHONY : CMakeFiles/lab2_omp.dir/clean
+task1/CMakeFiles/lab2_omp.dir/clean:
+	$(MAKE) $(MAKESILENT) -f task1/CMakeFiles/lab2_omp.dir/build.make task1/CMakeFiles/lab2_omp.dir/clean
+.PHONY : task1/CMakeFiles/lab2_omp.dir/clean
+
+#=============================================================================
+# Target rules for target task2/CMakeFiles/task2_omp.dir
+
+# All Build rule for target.
+task2/CMakeFiles/task2_omp.dir/all:
+	$(MAKE) $(MAKESILENT) -f task2/CMakeFiles/task2_omp.dir/build.make task2/CMakeFiles/task2_omp.dir/depend
+	$(MAKE) $(MAKESILENT) -f task2/CMakeFiles/task2_omp.dir/build.make task2/CMakeFiles/task2_omp.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/kollessky/USER/Projects/study/Parallel/lab2/build/CMakeFiles --progress-num=5,6 "Built target task2_omp"
+.PHONY : task2/CMakeFiles/task2_omp.dir/all
+
+# Build rule for subdir invocation for target.
+task2/CMakeFiles/task2_omp.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/kollessky/USER/Projects/study/Parallel/lab2/build/CMakeFiles 2
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 task2/CMakeFiles/task2_omp.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/kollessky/USER/Projects/study/Parallel/lab2/build/CMakeFiles 0
+.PHONY : task2/CMakeFiles/task2_omp.dir/rule
+
+# Convenience name for target.
+task2_omp: task2/CMakeFiles/task2_omp.dir/rule
+.PHONY : task2_omp
+
+# codegen rule for target.
+task2/CMakeFiles/task2_omp.dir/codegen:
+	$(MAKE) $(MAKESILENT) -f task2/CMakeFiles/task2_omp.dir/build.make task2/CMakeFiles/task2_omp.dir/codegen
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/kollessky/USER/Projects/study/Parallel/lab2/build/CMakeFiles --progress-num=5,6 "Finished codegen for target task2_omp"
+.PHONY : task2/CMakeFiles/task2_omp.dir/codegen
+
+# clean rule for target.
+task2/CMakeFiles/task2_omp.dir/clean:
+	$(MAKE) $(MAKESILENT) -f task2/CMakeFiles/task2_omp.dir/build.make task2/CMakeFiles/task2_omp.dir/clean
+.PHONY : task2/CMakeFiles/task2_omp.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.

@@ -1,0 +1,1 @@
+/usr/bin/c++ -O3 -DNDEBUG -Wl,--dependency-file=CMakeFiles/task2.dir/link.d CMakeFiles/task2.dir/main.cpp.o -o task2

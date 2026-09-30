@@ -126,7 +126,7 @@ lab2_seq: cmake_check_build_system
 
 # fast build rule for target.
 lab2_seq/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/lab2_seq.dir/build.make CMakeFiles/lab2_seq.dir/build
+	$(MAKE) $(MAKESILENT) -f task1/CMakeFiles/lab2_seq.dir/build.make task1/CMakeFiles/lab2_seq.dir/build
 .PHONY : lab2_seq/fast
 
 #=============================================================================
@@ -139,35 +139,21 @@ lab2_omp: cmake_check_build_system
 
 # fast build rule for target.
 lab2_omp/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/lab2_omp.dir/build.make CMakeFiles/lab2_omp.dir/build
+	$(MAKE) $(MAKESILENT) -f task1/CMakeFiles/lab2_omp.dir/build.make task1/CMakeFiles/lab2_omp.dir/build
 .PHONY : lab2_omp/fast
 
-main.o: main.cpp.o
-.PHONY : main.o
+#=============================================================================
+# Target rules for targets named task2_omp
 
-# target to build an object file
-main.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/lab2_seq.dir/build.make CMakeFiles/lab2_seq.dir/main.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/lab2_omp.dir/build.make CMakeFiles/lab2_omp.dir/main.cpp.o
-.PHONY : main.cpp.o
+# Build rule for target.
+task2_omp: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 task2_omp
+.PHONY : task2_omp
 
-main.i: main.cpp.i
-.PHONY : main.i
-
-# target to preprocess a source file
-main.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/lab2_seq.dir/build.make CMakeFiles/lab2_seq.dir/main.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/lab2_omp.dir/build.make CMakeFiles/lab2_omp.dir/main.cpp.i
-.PHONY : main.cpp.i
-
-main.s: main.cpp.s
-.PHONY : main.s
-
-# target to generate assembly for a file
-main.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/lab2_seq.dir/build.make CMakeFiles/lab2_seq.dir/main.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/lab2_omp.dir/build.make CMakeFiles/lab2_omp.dir/main.cpp.s
-.PHONY : main.cpp.s
+# fast build rule for target.
+task2_omp/fast:
+	$(MAKE) $(MAKESILENT) -f task2/CMakeFiles/task2_omp.dir/build.make task2/CMakeFiles/task2_omp.dir/build
+.PHONY : task2_omp/fast
 
 # Help Target
 help:
@@ -179,9 +165,7 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... lab2_omp"
 	@echo "... lab2_seq"
-	@echo "... main.o"
-	@echo "... main.i"
-	@echo "... main.s"
+	@echo "... task2_omp"
 .PHONY : help
 
 

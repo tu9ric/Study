@@ -10,6 +10,8 @@ set(CMAKE_MAKEFILE_DEPENDS
   "/home/kollessky/USER/Projects/study/Parallel/lab2/CMakeLists.txt"
   "CMakeFiles/4.4.3/CMakeCXXCompiler.cmake"
   "CMakeFiles/4.4.3/CMakeSystem.cmake"
+  "/home/kollessky/USER/Projects/study/Parallel/lab2/task1/CMakeLists.txt"
+  "/home/kollessky/USER/Projects/study/Parallel/lab2/task2/CMakeLists.txt"
   "/usr/lib/cmake/opencv5/OpenCVConfig-version.cmake"
   "/usr/lib/cmake/opencv5/OpenCVConfig.cmake"
   "/usr/lib/cmake/opencv5/OpenCVModules-release.cmake"
@@ -51,10 +53,13 @@ set(CMAKE_MAKEFILE_OUTPUTS
 # Byproducts of CMake generate step:
 set(CMAKE_MAKEFILE_PRODUCTS
   "CMakeFiles/CMakeDirectoryInformation.cmake"
+  "task1/CMakeFiles/CMakeDirectoryInformation.cmake"
+  "task2/CMakeFiles/CMakeDirectoryInformation.cmake"
   )
 
 # Dependency information for all targets:
 set(CMAKE_DEPEND_INFO_FILES
-  "CMakeFiles/lab2_seq.dir/DependInfo.cmake"
-  "CMakeFiles/lab2_omp.dir/DependInfo.cmake"
+  "task1/CMakeFiles/lab2_seq.dir/DependInfo.cmake"
+  "task1/CMakeFiles/lab2_omp.dir/DependInfo.cmake"
+  "task2/CMakeFiles/task2_omp.dir/DependInfo.cmake"
   )
