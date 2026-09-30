@@ -1,9 +1,0 @@
-/home/kollessky/USER/Projects/study/Parallel/lab2/build/CMakeFiles/edit_cache.dir
-/home/kollessky/USER/Projects/study/Parallel/lab2/build/CMakeFiles/rebuild_cache.dir
-/home/kollessky/USER/Projects/study/Parallel/lab2/build/task1/CMakeFiles/lab2_seq.dir
-/home/kollessky/USER/Projects/study/Parallel/lab2/build/task1/CMakeFiles/lab2_omp.dir
-/home/kollessky/USER/Projects/study/Parallel/lab2/build/task1/CMakeFiles/edit_cache.dir
-/home/kollessky/USER/Projects/study/Parallel/lab2/build/task1/CMakeFiles/rebuild_cache.dir
-/home/kollessky/USER/Projects/study/Parallel/lab2/build/task2/CMakeFiles/task2_omp.dir
-/home/kollessky/USER/Projects/study/Parallel/lab2/build/task2/CMakeFiles/edit_cache.dir
-/home/kollessky/USER/Projects/study/Parallel/lab2/build/task2/CMakeFiles/rebuild_cache.dir

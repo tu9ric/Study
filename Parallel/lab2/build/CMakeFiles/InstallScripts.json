@@ -1,9 +1,0 @@
-{
-	"InstallScripts" : 
-	[
-		"/home/kollessky/USER/Projects/study/Parallel/lab2/build/cmake_install.cmake",
-		"/home/kollessky/USER/Projects/study/Parallel/lab2/build/task1/cmake_install.cmake",
-		"/home/kollessky/USER/Projects/study/Parallel/lab2/build/task2/cmake_install.cmake"
-	],
-	"Parallel" : false
-}

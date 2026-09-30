@@ -1,0 +1,1 @@
+﻿Инструкции для Windows и Linux: ../README.md. Используйте run.ps1 или run.sh из корня проекта.
