@@ -1,0 +1,6 @@
+add_executable(lab1_task2 main.cpp)
+target_compile_features(lab1_task2 PRIVATE cxx_std_20)
+target_link_libraries(lab1_task2 PRIVATE Threads::Threads)
+if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+    target_compile_options(lab1_task2 PRIVATE -finput-charset=UTF-8 -fexec-charset=UTF-8)
+endif()

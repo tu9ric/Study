@@ -1,4 +1,4 @@
-#include "../common/console.hpp"
+#include "../include/console.hpp"
 #include <iostream>
 #include <thread>
 #include <chrono>

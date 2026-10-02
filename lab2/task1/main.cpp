@@ -1,4 +1,4 @@
-#include "../../common/console.hpp"
+#include "../include/console.hpp"
 #include <opencv2/core.hpp>
 #include <opencv2/imgcodecs.hpp>
 #include <cmath>
@@ -231,14 +231,14 @@ int main(int argc, char* argv[])
         modifyValue(MR, maxMRValue);
 
         const auto finish = std::chrono::steady_clock::now();
-        const double timeMs = std::chrono::duration<double, std::milli>(finish - start).count();
+        const double timeSeconds = std::chrono::duration<double>(finish - start).count();
 
         if(i == 0)
         {
             std::cout << "Максимальный элемент MR: " << maxMRValue << '\n';
         }
         
-        std::cout << "Время вычислений: " << timeMs << " Ms\n";
+        std::cout << "Время вычислений: " << timeSeconds << " s\n";
 
         // сохранение модифицированной матрицы MR в yaml файл, так как пиксели сейчас хранятся во float
         // MR имеет тип CV_32FC1 и может содержать дробные числа

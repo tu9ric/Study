@@ -1,4 +1,4 @@
-#include "../../common/console.hpp"
+#include "../include/console.hpp"
 #include <iostream>
 #include <vector>
 #include <random>
@@ -196,8 +196,8 @@ Test oneTest(
 void printResult(const std::vector<Test>& tests)
 {
     std::cout << std::setw(5) << "ID   "
-              << std::setw(20) << "LinearTime"
-              << std::setw(20) << "ParallelTime"
+              << std::setw(20) << "LinearTime (s)"
+              << std::setw(20) << "ParallelTime (s)"
               << std::setw(15) << "Comparison" << "\n";
 
     std::cout << std::string(60, '-') << "\n";

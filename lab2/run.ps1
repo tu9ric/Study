@@ -1,5 +1,5 @@
 param(
-    [ValidateSet('build','lab1_task1','lab1_task2','lab2_seq','lab2_omp','task2_omp')]
+    [ValidateSet('build','lab2_seq','lab2_omp','task2_omp')]
     [string]$Task = 'build',
     [string]$Image = '',
     [string]$MsysRoot = 'C:\msys64'
@@ -23,7 +23,7 @@ try {
     if ($Task -ne 'build') {
         $exe = Join-Path $build "bin\$Task.exe"
         if ($Task -in @('lab2_seq','lab2_omp')) {
-            if (-not $Image) { $Image = Join-Path $PSScriptRoot 'lab2\task1\images\1024x768.jpg' }
+            if (-not $Image) { $Image = Join-Path $PSScriptRoot 'task1\images\1024x768.jpg' }
             & $exe $Image
         } else { & $exe }
         if ($LASTEXITCODE -ne 0) { throw "Program failed: $LASTEXITCODE" }
